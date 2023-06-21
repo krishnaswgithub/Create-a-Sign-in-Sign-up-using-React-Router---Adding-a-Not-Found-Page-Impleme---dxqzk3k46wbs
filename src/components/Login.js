@@ -39,49 +39,53 @@
 // export default Login;
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Login = ({ handleLogin }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Login({ email, password, setLoggedIn, setNavigate }) {
+  const [emailVal, setEmailVal] = useState('');
+  const [passwordVal, setPasswordVal] = useState('');
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform login validation or API request here
 
-    // Assuming login is successful
-    handleLogin();
+    if (emailVal === email && passwordVal === password && emailVal) {
+      setLoggedIn(true);
+    }
   };
 
   return (
-    <div id="loginPage">
-      <h1 id="login-tag">Login</h1>
+    <div id='loginPage'>
+      <h1 id='login-tag'>Login</h1>
+
       <form onSubmit={handleSubmit}>
+        <h3>Email</h3>
         <input
-          type="email"
-          id="login-email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
+          placeholder='abc@gmail.com'
+          type='email'
+          id='login-email'
+          value={emailVal}
+          onChange={(e) => setEmailVal(e.target.value)}
         />
+
+        <h3>Password</h3>
         <input
-          type="password"
-          id="login-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit" id="login-submit">
-          Login
-        </button>
+          placeholder='Enter password'
+          type='password'
+          id='login-password'
+          value={passwordVal}
+          onChange={(e) => setPasswordVal(e.target.value)}
+        /><br />
+
+        <button id='login-submit' type='submit'>Login</button>
       </form>
-      <button id="login-to-register" onClick={() => window.location.href = '/register'}>
-        Register
+
+      <br />
+      Don't have an account?
+      <button id='login-to-register' onClick={() => setNavigate(false)}>
+        <Link to="/register">Register here..</Link>
       </button>
     </div>
   );
-};
+}
 
 export default Login;
